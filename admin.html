@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Fatec | Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Voltar para a página inicial">
+      <span class="brand-mark">RF</span>
+      <span>RPG Fatec</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Menu principal">
+      <a href="index.html">Início</a>
+      <a href="panteao.html">Panteão</a>
+      <a href="index.html#mundo">Mundo</a>
+      <a href="index.html#campanhas">Campanhas</a>
+      <a href="index.html#personagens">Personagens</a>
+      <a href="admin.html" class="active" data-dm-only hidden>Admin</a>
+      <a href="login.html" data-auth-link>Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero compact">
+      <p class="eyebrow">Painel do Dungeon Master</p>
+      <h1>Gerenciar perfis</h1>
+      <p>
+        Veja quem criou conta e defina se a pessoa será DM, Assistente do DM,
+        Player ou Outsider. DM tem controle total; Assistente do DM pode gerenciar
+        contas que não sejam DM, sem promover ninguém a DM e sem mudar o próprio cargo.
+      </p>
+    </section>
+
+    <section class="section admin-section">
+      <div class="section-heading">
+        <p class="eyebrow">Cargos</p>
+        <h2>Perfis cadastrados</h2>
+      </div>
+
+      <div class="access-warning" data-admin-warning hidden>
+        <h3>Acesso restrito</h3>
+        <p>Entre com o perfil de DM ou Assistente do DM para gerenciar cargos.</p>
+        <a class="button primary" href="login.html">Ir para login</a>
+      </div>
+
+      <div class="table-wrap" data-admin-panel hidden>
+        <table class="profile-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Cargo</th>
+              <th>Alterar cargo</th>
+              <th>Excluir</th>
+            </tr>
+          </thead>
+          <tbody data-users-table></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>RPG Fatec - controle do DM.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

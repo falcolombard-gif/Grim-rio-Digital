@@ -1,0 +1,864 @@
+﻿:root {
+  --bg: #11100e;
+  --surface: #1d1a17;
+  --surface-strong: #29231d;
+  --text: #f4eee4;
+  --muted: #c8bca9;
+  --line: rgba(244, 238, 228, 0.16);
+  --gold: #d8a84f;
+  --gold-dark: #9b6a2f;
+  --green: #3f7b6d;
+  --shadow: 0 20px 55px rgba(0, 0, 0, 0.34);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(216, 168, 79, 0.18), transparent 34rem),
+    linear-gradient(135deg, #11100e 0%, #171512 52%, #10211e 100%);
+  font-family: "Inter", Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 76px;
+  padding: 0 5vw;
+  border-bottom: 1px solid var(--line);
+  background: rgba(17, 16, 14, 0.9);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text);
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(216, 168, 79, 0.55);
+  border-radius: 8px;
+  color: var(--gold);
+  background: rgba(216, 168, 79, 0.1);
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.main-nav a {
+  padding: 0.75rem 0.95rem;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--text);
+  background: rgba(216, 168, 79, 0.14);
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 4px auto;
+  background: var(--text);
+}
+
+.hero,
+.page-hero {
+  display: grid;
+  align-items: center;
+  min-height: calc(100vh - 76px);
+  padding: 6rem 5vw;
+}
+
+.hero {
+  background:
+    linear-gradient(rgba(17, 16, 14, 0.1), rgba(17, 16, 14, 0.82)),
+    url("https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1800&q=80") center/cover;
+}
+
+.hero-content,
+.page-hero {
+  max-width: 860px;
+}
+
+.page-hero.compact {
+  min-height: 460px;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Cinzel", Georgia, serif;
+  line-height: 1.08;
+}
+
+h1 {
+  max-width: 820px;
+  font-size: clamp(2.5rem, 8vw, 5.8rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+p {
+  line-height: 1.7;
+}
+
+.hero-content > p:not(.eyebrow),
+.page-hero > p:not(.eyebrow) {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.session-panel {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(17, 16, 14, 0.62);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.8rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.button.primary {
+  color: #16110a;
+  background: var(--gold);
+}
+
+.button.secondary {
+  border-color: var(--line);
+  color: var(--text);
+  background: rgba(244, 238, 228, 0.08);
+}
+
+.button.danger {
+  border-color: rgba(255, 128, 112, 0.46);
+  color: #ffd8d3;
+  background: rgba(148, 45, 34, 0.22);
+}
+
+.button.full {
+  width: 100%;
+}
+
+.section {
+  padding: 5rem 5vw;
+}
+
+.section-heading {
+  max-width: 720px;
+  margin-bottom: 2rem;
+}
+
+.relock-actions {
+  margin-top: 1.5rem;
+}
+
+.section-heading .relock-button {
+  margin-top: 1rem;
+}
+
+.feature-grid,
+.deity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.deity-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.feature-card,
+.deity-card {
+  min-height: 230px;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(29, 26, 23, 0.78);
+  box-shadow: var(--shadow);
+}
+
+.feature-card.highlight {
+  border-color: rgba(216, 168, 79, 0.48);
+  background: linear-gradient(160deg, rgba(216, 168, 79, 0.18), rgba(29, 26, 23, 0.82));
+}
+
+.feature-card p,
+.deity-card p {
+  color: var(--muted);
+}
+
+.feature-card a {
+  color: var(--gold);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.card-label,
+.domain {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.deity-symbol {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1rem;
+  place-items: center;
+  border: 1px solid rgba(216, 168, 79, 0.48);
+  border-radius: 8px;
+  color: var(--gold);
+  background: rgba(216, 168, 79, 0.1);
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.7rem;
+}
+
+.deity-card.empty {
+  border-style: dashed;
+  background: rgba(63, 123, 109, 0.14);
+}
+
+.deity-button-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.deity-button {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: 380px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(29, 26, 23, 0.86);
+  box-shadow: var(--shadow);
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.deity-button img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus-x, 50%) var(--focus-y, 22%);
+  filter: grayscale(1);
+  transform: translateX(var(--shift-x, 0)) scale(var(--zoom, 1.04));
+  transition: filter 220ms ease, transform 220ms ease;
+}
+
+.deity-button::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, rgba(17, 16, 14, 0.16), rgba(17, 16, 14, 0.84));
+}
+
+.deity-button span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(244, 238, 228, 0.18);
+  border-radius: 6px;
+  background: rgba(17, 16, 14, 0.72);
+}
+
+.deity-button:hover {
+  border-color: rgba(216, 168, 79, 0.52);
+  background: rgba(216, 168, 79, 0.12);
+  transform: translateY(-2px);
+}
+
+.deity-button:hover img {
+  filter: grayscale(0);
+  transform: translateX(var(--shift-x, 0)) scale(var(--hover-zoom, 1.1));
+}
+
+.site-footer {
+  padding: 1.5rem 5vw;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  background: rgba(17, 16, 14, 0.82);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.deity-detail-hero {
+  position: relative;
+  display: grid;
+  min-height: 560px;
+  align-items: end;
+  padding: 6rem 5vw 4rem;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(17, 16, 14, 0.95) 0%, rgba(17, 16, 14, 0.68) 44%, rgba(17, 16, 14, 0.28) 100%),
+    var(--hero-image) var(--hero-focus, center 18%) / cover;
+}
+
+.deity-detail-copy {
+  max-width: 820px;
+}
+
+.deity-detail-copy p:not(.eyebrow) {
+  max-width: 640px;
+  color: var(--muted);
+  font-family: "Cinzel", Georgia, serif;
+  font-size: clamp(1.35rem, 3vw, 2.2rem);
+  font-weight: 700;
+}
+
+.deity-subnav {
+  position: sticky;
+  top: 76px;
+  z-index: 8;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.85rem 5vw;
+  overflow-x: auto;
+  border-block: 1px solid var(--line);
+  background: rgba(17, 16, 14, 0.92);
+  backdrop-filter: blur(14px);
+}
+
+.deity-subnav a,
+.deity-roster a {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+  font-weight: 800;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.deity-subnav a {
+  flex: 0 0 auto;
+  padding: 0.65rem 0.85rem;
+}
+
+.deity-subnav a:hover,
+.deity-roster a:hover,
+.deity-roster a.active {
+  border-color: rgba(216, 168, 79, 0.48);
+  color: var(--text);
+  background: rgba(216, 168, 79, 0.12);
+}
+
+.deity-detail-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1.4rem;
+  padding: 4rem 5vw;
+}
+
+.deity-roster {
+  position: sticky;
+  top: 154px;
+  align-self: start;
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(29, 26, 23, 0.82);
+  box-shadow: var(--shadow);
+}
+
+.deity-roster a {
+  padding: 0.68rem 0.75rem;
+  font-size: 0.88rem;
+}
+
+.deity-topic-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.deity-topic {
+  scroll-margin-top: 155px;
+  padding: 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(29, 26, 23, 0.8);
+  box-shadow: var(--shadow);
+}
+
+.deity-topic .section-heading {
+  margin-bottom: 1.1rem;
+}
+
+.deity-reference-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.95fr) minmax(260px, 1.05fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.deity-reference-grid.compact {
+  grid-template-columns: minmax(220px, 0.72fr) minmax(260px, 1.28fr);
+}
+
+.deity-reference-grid.note-only {
+  grid-template-columns: 1fr;
+}
+
+.deity-reference-grid.weapon-feature {
+  grid-template-columns: minmax(320px, 1.25fr) minmax(260px, 0.75fr);
+}
+
+.deity-reference {
+  position: relative;
+  min-height: 360px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(244, 238, 228, 0.14);
+  border-radius: 8px;
+  background: rgba(17, 16, 14, 0.8);
+}
+
+.deity-reference img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(1.05);
+}
+
+.deity-reference.focus-base img {
+  object-position: 18% 16%;
+}
+
+.deity-reference.weapon-art img {
+  object-position: center;
+}
+
+.deity-note {
+  display: grid;
+  align-content: center;
+  padding: 1.2rem;
+  border: 1px solid rgba(216, 168, 79, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(160deg, rgba(216, 168, 79, 0.12), rgba(17, 16, 14, 0.52));
+}
+
+.deity-note p,
+.deity-placeholder {
+  margin: 0;
+  color: var(--muted);
+}
+
+.deity-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.restricted-section,
+.restricted-topic {
+  position: relative;
+}
+
+.restricted-section.is-locked > :not(.content-lock),
+.restricted-topic.is-locked > :not(.section-heading):not(.content-lock) {
+  filter: blur(22px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.restricted-section.is-locked {
+  min-height: 420px;
+}
+
+.restricted-topic.is-locked {
+  min-height: 260px;
+}
+
+.content-lock {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  background: linear-gradient(180deg, rgba(17, 16, 14, 0.42), rgba(17, 16, 14, 0.9));
+}
+
+.content-lock-box {
+  display: grid;
+  gap: 0.85rem;
+  width: min(100%, 420px);
+  padding: 1.25rem;
+  border: 1px solid rgba(216, 168, 79, 0.42);
+  border-radius: 8px;
+  background: rgba(17, 16, 14, 0.92);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.content-lock-box h3,
+.content-lock-box p {
+  margin: 0;
+}
+
+.content-lock-box p {
+  color: var(--muted);
+}
+
+.auth-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1.15fr);
+  gap: 2rem;
+  align-items: start;
+  min-height: calc(100vh - 76px);
+  padding: 5rem 5vw;
+}
+
+.auth-copy {
+  position: sticky;
+  top: 110px;
+}
+
+.auth-copy h1 {
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+}
+
+.auth-copy p:not(.eyebrow) {
+  max-width: 620px;
+  color: var(--muted);
+}
+
+.dm-seed-note {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 360px;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(216, 168, 79, 0.42);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(216, 168, 79, 0.1);
+}
+
+.dm-seed-note strong {
+  color: var(--text);
+}
+
+.auth-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.auth-card,
+.access-warning {
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(29, 26, 23, 0.86);
+  box-shadow: var(--shadow);
+}
+
+.auth-card h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.7rem;
+}
+
+label {
+  display: block;
+  margin: 1rem 0 0.35rem;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  background: rgba(17, 16, 14, 0.72);
+  font: inherit;
+}
+
+input {
+  padding: 0 0.8rem;
+}
+
+select {
+  padding: 0 0.6rem;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid rgba(216, 168, 79, 0.38);
+  border-color: rgba(216, 168, 79, 0.68);
+}
+
+.auth-card .button {
+  margin-top: 1.2rem;
+}
+
+.form-message {
+  min-height: 1.5rem;
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.form-message.error {
+  color: #ffb4a8;
+}
+
+.form-message.success {
+  color: #98e2c6;
+}
+
+.admin-section {
+  padding-top: 1rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(29, 26, 23, 0.86);
+  box-shadow: var(--shadow);
+}
+
+.profile-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.profile-table th,
+.profile-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.profile-table th {
+  color: var(--gold);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.profile-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.role-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(216, 168, 79, 0.38);
+  border-radius: 999px;
+  color: var(--gold);
+  background: rgba(216, 168, 79, 0.1);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+@media (max-width: 860px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 76px;
+    right: 5vw;
+    left: 5vw;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .feature-grid,
+  .deity-grid,
+  .deity-button-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deity-detail-layout,
+  .deity-reference-grid,
+  .deity-reference-grid.compact,
+  .deity-reference-grid.weapon-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .deity-detail-hero {
+    min-height: 520px;
+    background:
+      linear-gradient(180deg, rgba(17, 16, 14, 0.5) 0%, rgba(17, 16, 14, 0.92) 100%),
+      var(--hero-image) var(--hero-focus, center top) / cover;
+  }
+
+  .deity-roster {
+    position: static;
+  }
+
+  .deity-reference {
+    min-height: 320px;
+  }
+
+  .auth-layout,
+  .auth-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-copy {
+    position: static;
+  }
+
+  .hero,
+  .page-hero {
+    min-height: 620px;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1180px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .deity-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .deity-button-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .deity-detail-layout,
+  .deity-reference-grid,
+  .deity-reference-grid.compact,
+  .deity-reference-grid.weapon-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .deity-roster {
+    position: static;
+  }
+}
+
