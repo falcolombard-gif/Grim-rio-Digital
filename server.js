@@ -5,7 +5,10 @@ const path = require("path");
 
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
-const DB_PATH = path.join(ROOT, "database.json");
+const SEED_DB_PATH = path.join(ROOT, "database.json");
+const DEFAULT_PERSISTENT_DIR = "/var/data";
+const DB_PATH = process.env.DATABASE_PATH
+  || (fs.existsSync(DEFAULT_PERSISTENT_DIR) ? path.join(DEFAULT_PERSISTENT_DIR, "database.json") : SEED_DB_PATH);
 const SESSION_COOKIE = "rpg_fatec_session";
 const roles = ["DM", "Assistente do DM", "Player", "Outsider"];
 const adminRoles = ["DM", "Assistente do DM"];
@@ -43,6 +46,8 @@ function verifyPassword(password, user) {
 }
 
 function readDatabase() {
+  ensureDatabaseFile();
+
   if (!fs.existsSync(DB_PATH)) {
     return { users: [] };
   }
@@ -51,7 +56,23 @@ function readDatabase() {
 }
 
 function writeDatabase(database) {
+  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
   fs.writeFileSync(DB_PATH, JSON.stringify(database, null, 2));
+}
+
+function ensureDatabaseFile() {
+  if (fs.existsSync(DB_PATH)) {
+    return;
+  }
+
+  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+
+  if (DB_PATH !== SEED_DB_PATH && fs.existsSync(SEED_DB_PATH)) {
+    fs.copyFileSync(SEED_DB_PATH, DB_PATH);
+    return;
+  }
+
+  fs.writeFileSync(DB_PATH, JSON.stringify({ users: [] }, null, 2));
 }
 
 function publicUser(user) {
