@@ -1,13 +1,5 @@
 const roles = ["DM", "Assistente do DM", "Player", "Outsider"];
 const adminRoles = ["DM", "Assistente do DM"];
-const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3001", "http://127.0.0.1:3001"];
-
-if (!allowedOrigins.includes(window.location.origin)) {
-  const currentFile = window.location.pathname.split(/[\\/]/).pop() || "index.html";
-  const targetFile = currentFile.endsWith(".html") ? currentFile : "index.html";
-  window.location.replace(`http://localhost:3000/${targetFile}`);
-  throw new Error("Redirecionando para o servidor local do site.");
-}
 
 let currentUser = null;
 
