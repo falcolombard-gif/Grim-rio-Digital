@@ -10,6 +10,7 @@ const SESSION_COOKIE = "rpg_fatec_session";
 const roles = ["DM", "Assistente do DM", "Player", "Outsider"];
 const adminRoles = ["DM", "Assistente do DM"];
 const sessions = new Map();
+const publicPages = new Set(["/index.html", "/login.html"]);
 
 const dmSeed = {
   id: "dm-principal",
@@ -388,10 +389,17 @@ function serveStatic(request, response) {
   const requestedUrl = new URL(request.url, `http://${request.headers.host}`);
   const pathname = requestedUrl.pathname === "/" ? "/index.html" : requestedUrl.pathname;
   const filePath = path.normalize(path.join(ROOT, decodeURIComponent(pathname)));
+  const extension = path.extname(filePath).toLowerCase();
 
   if (!filePath.startsWith(ROOT)) {
     response.writeHead(403);
     response.end("Acesso negado");
+    return;
+  }
+
+  if (extension === ".html" && !publicPages.has(pathname) && !getCurrentUser(request)) {
+    response.writeHead(302, { Location: "/login.html" });
+    response.end();
     return;
   }
 
@@ -402,7 +410,6 @@ function serveStatic(request, response) {
       return;
     }
 
-    const extension = path.extname(filePath).toLowerCase();
     response.writeHead(200, {
       "Content-Type": mimeTypes[extension] || "application/octet-stream"
     });
