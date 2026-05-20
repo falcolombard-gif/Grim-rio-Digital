@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Fatec | Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Voltar para a página inicial">
+      <span class="brand-mark">RF</span>
+      <span>RPG Fatec</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Menu principal">
+      <a href="index.html">Início</a>
+      <a href="panteao.html">Panteão</a>
+      <a href="index.html#mundo">Mundo</a>
+      <a href="index.html#campanhas">Campanhas</a>
+      <a href="index.html#personagens">Personagens</a>
+      <a href="admin.html" data-dm-only hidden>Admin</a>
+      <a href="login.html" class="active" data-auth-link>Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="auth-layout">
+      <div class="auth-copy">
+        <p class="eyebrow">Acesso da mesa</p>
+        <h1>Entre no arquivo da campanha</h1>
+        <p>
+          Crie um perfil para o DM definir seu cargo. Depois poderemos usar esses cargos
+          para liberar páginas, anotações e áreas específicas.
+        </p>
+        <div class="dm-seed-note" hidden>
+          <strong>Login inicial do DM</strong>
+          <span>Email: dm@gmail.com</span>
+          <span>Senha: DungeonM@ster123</span>
+        </div>
+      </div>
+
+      <div class="auth-panels">
+        <form class="auth-card" id="loginForm">
+          <p class="eyebrow">Já tenho perfil</p>
+          <h2>Login</h2>
+
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" name="email" type="email" autocomplete="email" required>
+
+          <label for="loginPassword">Senha</label>
+          <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+
+          <button class="button primary full" type="submit">Entrar</button>
+          <p class="form-message" data-login-message></p>
+        </form>
+
+        <form class="auth-card" id="signupForm">
+          <p class="eyebrow">Novo jogador</p>
+          <h2>Criar perfil</h2>
+
+          <label for="signupName">Nome</label>
+          <input id="signupName" name="name" type="text" autocomplete="name" required>
+
+          <label for="signupEmail">Email</label>
+          <input id="signupEmail" name="email" type="email" autocomplete="email" required>
+
+          <label for="signupPassword">Senha</label>
+          <input id="signupPassword" name="password" type="password" autocomplete="new-password" minlength="4" required>
+
+          <button class="button secondary full" type="submit">Criar perfil</button>
+          <p class="form-message" data-signup-message></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>RPG Fatec - acesso dos aventureiros.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

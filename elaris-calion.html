@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Fatec | Elaris Calion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Voltar para a página inicial">
+      <span class="brand-mark">RF</span>
+      <span>RPG Fatec</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Menu principal">
+      <a href="index.html">Início</a>
+      <a href="panteao.html" class="active">Panteão</a>
+      <a href="index.html#mundo">Mundo</a>
+      <a href="index.html#campanhas">Campanhas</a>
+      <a href="index.html#personagens">Personagens</a>
+      <a href="admin.html" data-dm-only hidden>Admin</a>
+      <a href="login.html" data-auth-link>Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="deity-detail-hero" style="--hero-image: url('assets/gods/elaris-calion.png'); --hero-focus: 50% 20%;">
+      <div class="deity-detail-copy">
+        <p class="eyebrow">Divindade do Panteão</p>
+        <h1>Elaris Calion</h1>
+        <p>Justiça Viva</p>
+      </div>
+    </section>
+
+    <nav class="deity-subnav" aria-label="Tópicos de Elaris Calion">
+      <a href="#base">Base</a>
+      <a href="#simbolo">Símbolo</a>
+      <a href="#bencao">Arma / Benção Sagrada</a>
+      <a href="#emissarios">Emissários</a>
+      <a href="#historia">História</a>
+    </nav>
+
+    <section class="deity-detail-layout">
+      <aside class="deity-roster" aria-label="Outras divindades">
+        <p class="eyebrow">Panteão</p>
+          <a href="ronan-vex.html">O Aventureiro</a>
+          <a class="active" href="elaris-calion.html">Justiça Viva</a>
+          <a href="eryndor.html">Punição da Natureza</a>
+          <a href="gomdarak.html">Forja de Batalha</a>
+          <a href="kazvug-nkari.html">Campeão das Águas</a>
+          <a href="djakar.html">Guardião das Areias</a>
+          <a href="valenor.html">Honra na Batalha</a>
+          <a href="griznakk.html">Prosperidade Gloriosa</a>
+          <a href="kragor.html">Fúria Invicta</a>
+          <a href="aerganna.html">Guardiã das Tempestades</a>
+          <a href="veyss.html">Juventude Invisível</a>
+          <a href="nytherael-zorvorythas.html">Príncipe da Noite</a>
+      </aside>
+
+      <div class="deity-topic-list">
+        <article class="deity-topic" id="base">
+          <div class="section-heading">
+            <p class="eyebrow">Registro principal</p>
+            <h2>Base</h2>
+          </div>
+          <div class="deity-reference-grid">
+            <figure class="deity-reference focus-base">
+              <img src="assets/gods/profiles/elaris-calion-sheet.png" alt="Ficha visual de Elaris Calion com o menu de base">
+            </figure>
+            <div class="deity-note">
+              <h3>Elaris Calion</h3>
+              <p>Conhecido como Deus da Justiça, Elaris Calion governa os domínios da luz, do fogo e da justiça. De alinhamento leal e neutro, sua presença se ergue como uma sentença clara contra a corrupção, as trevas e todo desequilíbrio que ameaça a verdade.</p>
+              <p>Seu símbolo é a Balança, representação sagrada do equilíbrio e do julgamento. Reverenciado como Clérigo Supremo da Luz, Elaris é patrono da verdade, do equilíbrio e da justiça, guiando aqueles que buscam ordem sem abrir mão da retidão.</p>
+              <p>Sua arma sagrada é o Grimório Expurgador das Trevas, um tomo de luz e julgamento usado para revelar falsidades, queimar sombras e restaurar o peso correto da balança. Onde sua chama toca, a injustiça perde abrigo.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="deity-topic" id="simbolo">
+          <div class="section-heading">
+            <p class="eyebrow">Marca divina</p>
+            <h2>Símbolo</h2>
+          </div>
+          <div class="deity-reference-grid note-only">
+            <div class="deity-note">
+              <p>O símbolo aparece registrado na ficha visual e também nos elementos sagrados da ilustração.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="deity-topic" id="bencao">
+          <div class="section-heading">
+            <p class="eyebrow">Poder sagrado</p>
+            <h2>Arma / Benção Sagrada</h2>
+          </div>
+          <div class="deity-reference-grid note-only">
+            <div class="deity-note">
+              <p>A arma, relíquia ou benção sagrada está indicada no painel inferior da ficha original.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="deity-topic" id="emissarios">
+          <div class="section-heading">
+            <p class="eyebrow">Servos e sinais</p>
+            <h2>Emissários</h2>
+          </div>
+          <p class="deity-placeholder">Espaço reservado para os emissários, avatares, presságios e representantes de Elaris Calion.</p>
+        </article>
+
+        <article class="deity-topic" id="historia">
+          <div class="section-heading">
+            <p class="eyebrow">Arquivo sagrado</p>
+            <h2>História</h2>
+          </div>
+          <p class="deity-placeholder">Espaço reservado para a origem, feitos, conflitos e mitos ligados a Elaris Calion.</p>
+        </article>
+
+        <div class="deity-page-actions">
+          <a class="button secondary" href="ronan-vex.html">Anterior</a>
+          <a class="button primary" href="panteao.html">Voltar ao Panteão</a>
+          <a class="button secondary" href="eryndor.html">Próximo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>RPG Fatec - arquivo do Panteão.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

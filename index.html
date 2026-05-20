@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Fatec | Início</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Voltar para a página inicial">
+      <span class="brand-mark">RF</span>
+      <span>RPG Fatec</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Menu principal">
+      <a href="index.html" class="active">Início</a>
+      <a href="panteao.html">Panteão</a>
+      <a href="#mundo">Mundo</a>
+      <a href="#campanhas">Campanhas</a>
+      <a href="#personagens">Personagens</a>
+      <a href="admin.html" data-dm-only hidden>Admin</a>
+      <a href="login.html" data-auth-link>Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Arquivo vivo da campanha</p>
+        <h1>Grimório Digital</h1>
+        <p>
+          Este site será a central da mesa: panteão, locais importantes, histórias,
+          personagens, regras da casa e tudo que precisar ser lembrado entre sessões.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="panteao.html">Entrar no Panteão</a>
+          <a class="button secondary" href="login.html">Criar perfil</a>
+        </div>
+        <div class="session-panel" data-session-panel hidden></div>
+      </div>
+    </section>
+
+    <section class="section" id="areas">
+      <div class="section-heading">
+        <p class="eyebrow">Primeiras seções</p>
+        <h2>O que o site vai guardar</h2>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card highlight">
+          <span class="card-label">Em construção</span>
+          <h3>Panteão</h3>
+          <p>Deuses, domínios, símbolos, cultos, lendas e relações entre entidades.</p>
+          <a href="panteao.html">Abrir seção</a>
+        </article>
+
+        <article class="feature-card" id="mundo">
+          <h3>Mundo</h3>
+          <p>Reinos, cidades, facções, mapas, eras históricas e regiões perigosas.</p>
+        </article>
+
+        <article class="feature-card" id="campanhas">
+          <h3>Campanhas</h3>
+          <p>Arcos narrativos, sessões anteriores, ameaças ativas e objetivos do grupo.</p>
+        </article>
+
+        <article class="feature-card" id="personagens">
+          <h3>Personagens</h3>
+          <p>Jogadores, NPCs, rivais, aliados e figuras importantes da história.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>RPG Fatec - grimório digital da campanha.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
