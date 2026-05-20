@@ -23,6 +23,72 @@ const dmSeed = {
   role: "DM"
 };
 
+const playerSeeds = [
+  {
+    id: "player-bea-mendes",
+    name: "Bea",
+    email: "bea.mendesd@gmail.com",
+    role: "Player",
+    passwordSalt: "6857d2974577b6600b71b7a215897176",
+    passwordHash: "d0216a91eee775778834d43a4857653cee1201a2817ebf6720fbaa8fac7b5238faf6d48353601246507ad7a161922c926139c2c835f4cfdbb0b7d224e5e7279e",
+    createdAt: "2026-05-19T00:00:00.000Z"
+  },
+  {
+    id: "player-thallys",
+    name: "Thallys",
+    email: "thallys.1080@gmail.com",
+    role: "Player",
+    passwordSalt: "3a769200005cfe2b2eaccaf0ceeaf101",
+    passwordHash: "96dfa9e230c11ab563cf29a83856030dfcccd3b9598d0fd5f12f9d9b7f9aa8f13919dd8d7e286fdd30b6540e26743d6d6a4898f9dd31f8b9198dcbde6294620c",
+    createdAt: "2026-05-19T00:00:00.000Z"
+  },
+  {
+    id: "player-pd340",
+    name: "Pd340",
+    email: "pedroarrudavicente@gmail.com",
+    role: "Player",
+    passwordSalt: "41f9d15f0b224cd2afea8cc8edea2047",
+    passwordHash: "c3534800a08f9f3a4e5be6469592779d5ee907fc77e30e7f423fa70e69a2832331aaa40770abcfab1a3d48a83187bb4e6f0437aeb1aab12fc6ef90e1c69cc0ea",
+    createdAt: "2026-05-19T00:00:00.000Z"
+  },
+  {
+    id: "player-skullzinho",
+    name: "Skullzinho",
+    email: "fe.xavier501@gmail.com",
+    role: "Player",
+    passwordSalt: "ef8442230153a9482c4b27679fb62583",
+    passwordHash: "141c17ea677eaa311f67301f056c6ce872b83dde8eab113e231975310dc03e798f6686b9b60b1388a78c363718804b8904651ad9be318bfa4125c07d27640ab0",
+    createdAt: "2026-05-19T00:00:00.000Z"
+  },
+  {
+    id: "player-bruno-borges",
+    name: "Bruno Borges",
+    email: "landy.borg@hotmail.com",
+    role: "Player",
+    passwordSalt: "58edfcab4b60c9c0453b33c97f501977",
+    passwordHash: "bc5e4f4c3f93f0231b90639aad68c587956edfbe7b7f5a046b29df622c061b1d1e05d8218c343ea64ee7cb62f357ff7292c45ce44656c41d06bf1953235440b7",
+    createdAt: "2026-05-19T00:00:00.000Z"
+  },
+  {
+    id: "player-eros-quadros",
+    name: "Eros Quadros",
+    email: "erosquadros5@gmail.com",
+    role: "Player",
+    passwordSalt: "dbe90c5df1244bdd5ad5a288d60ba3fe",
+    passwordHash: "a3b03547ae68bfc16602b1ef3f37f131ef840e334a4ba799dd38b7741a5f0899180fae9464f5a6db82cca4bb004d75512ac71b66704a8d3b7ecf3a319ee33b42",
+    createdAt: "2026-05-19T00:00:00.000Z"
+  },
+  {
+    id: "player-krarth",
+    name: "Krarth",
+    email: "arthurhrq.rodrigues@gmail.com",
+    role: "Player",
+    passwordSalt: "746a533314a2573a3489c350aa46ddac",
+    passwordHash: "ea38b70eb7f0685625206470b4a2fee4cf7d63c9bb0f54ab72354616baa3eebeec8f288ce8487c94112fb979cb63463ffeca1e3d7e551375d2118fa91f9a0d79",
+    createdAt: "2026-05-19T00:00:00.000Z"
+  }
+];
+
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -127,6 +193,34 @@ function ensureDmUser() {
   }
 }
 
+function ensurePlayerSeeds() {
+  const database = readDatabase();
+  let changed = false;
+
+  playerSeeds.forEach((seed) => {
+    const existingUser = database.users.find((user) => user.email === seed.email);
+
+    if (!existingUser) {
+      database.users.push({ ...seed });
+      changed = true;
+      return;
+    }
+
+    ["id", "name", "email", "role", "passwordSalt", "passwordHash", "createdAt"].forEach((key) => {
+      if (existingUser[key] !== seed[key]) {
+        existingUser[key] = seed[key];
+        changed = true;
+      }
+    });
+
+    delete existingUser.password;
+  });
+
+  if (changed) {
+    writeDatabase(database);
+  }
+}
+
 function getCookie(request, name) {
   const cookie = request.headers.cookie || "";
   const parts = cookie.split(";").map((part) => part.trim());
@@ -199,6 +293,8 @@ function requireAdminManager(request, response) {
 
 async function handleApi(request, response) {
   try {
+    ensurePlayerSeeds();
+
     if (request.method === "GET" && request.url === "/api/me") {
       const currentUser = getCurrentUser(request);
       sendJson(response, 200, { user: currentUser ? publicUser(currentUser) : null });
@@ -260,7 +356,7 @@ async function handleApi(request, response) {
         id: crypto.randomUUID(),
         name,
         email,
-        role: "Outsider",
+        role: "Player",
         passwordSalt: passwordData.salt,
         passwordHash: passwordData.hash,
         createdAt: new Date().toISOString()
@@ -439,6 +535,7 @@ function serveStatic(request, response) {
 }
 
 ensureDmUser();
+ensurePlayerSeeds();
 
 http.createServer((request, response) => {
   if (request.url.startsWith("/api/")) {

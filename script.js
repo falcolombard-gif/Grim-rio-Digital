@@ -1,5 +1,6 @@
 const roles = ["DM", "Assistente do DM", "Player", "Outsider"];
 const adminRoles = ["DM", "Assistente do DM"];
+const publicPages = new Set(["index.html", "login.html"]);
 
 let currentUser = null;
 
@@ -27,7 +28,7 @@ function isAdminRole(role = currentUser?.role) {
 }
 
 function hasFullContentAccess() {
-  return currentUser?.role !== "Player";
+  return Boolean(currentUser) && currentUser.role !== "Player";
 }
 
 function pageFileName() {
@@ -35,7 +36,20 @@ function pageFileName() {
 }
 
 function unlockKey(name) {
-  return `rpg-fatec:unlock:${name}`;
+  const userKey = currentUser?.id || currentUser?.email || "anonymous";
+  return `rpg-fatec:unlock:${userKey}:${name}`;
+}
+
+function isUnlocked(name) {
+  return localStorage.getItem(unlockKey(name)) === "ok";
+}
+
+function setUnlocked(name) {
+  localStorage.setItem(unlockKey(name), "ok");
+}
+
+function removeUnlocked(name) {
+  localStorage.removeItem(unlockKey(name));
 }
 
 async function apiRequest(path, options = {}) {
@@ -66,6 +80,15 @@ async function loadCurrentUser() {
   }
 }
 
+function requireLoginForPrivatePage() {
+  if (currentUser || publicPages.has(pageFileName())) {
+    return false;
+  }
+
+  window.location.href = "login.html";
+  return true;
+}
+
 function updateNavigation() {
   const authLink = document.querySelector("[data-auth-link]");
   const adminLinks = document.querySelectorAll("[data-dm-only]");
@@ -85,10 +108,6 @@ function updateNavigation() {
 
       event.preventDefault();
       await apiRequest("/api/logout", { method: "POST" });
-      sessionStorage.removeItem(unlockKey("panteao"));
-      Object.keys(sessionStorage)
-        .filter((key) => key.startsWith(unlockKey("topic:")))
-        .forEach((key) => sessionStorage.removeItem(key));
       window.location.href = "index.html";
     };
   }
@@ -161,7 +180,7 @@ function setupPlayerPantheonLock() {
     return;
   }
 
-  if (sessionStorage.getItem(unlockKey("panteao")) === "ok") {
+  if (isUnlocked("panteao")) {
     const hero = document.querySelector(".page-hero");
 
     if (hero && !hero.querySelector("[data-relock-panteao]")) {
@@ -169,7 +188,7 @@ function setupPlayerPantheonLock() {
       actions.className = "relock-actions";
       actions.dataset.relockPanteao = "true";
       actions.appendChild(createRelockButton("Bloquear Panteão novamente", () => {
-        sessionStorage.removeItem(unlockKey("panteao"));
+        removeUnlocked("panteao");
         window.location.reload();
       }));
       hero.appendChild(actions);
@@ -186,7 +205,7 @@ function setupPlayerPantheonLock() {
       return;
     }
 
-    sessionStorage.setItem(unlockKey("panteao"), "ok");
+    setUnlocked("panteao");
     window.location.reload();
   }));
 }
@@ -201,14 +220,14 @@ function setupPlayerTopicLocks() {
       return;
     }
 
-    const key = unlockKey(`topic:${pageFileName()}:${topic.id}`);
+    const unlockName = `topic:${pageFileName()}:${topic.id}`;
 
-    if (sessionStorage.getItem(key) === "ok") {
+    if (isUnlocked(unlockName)) {
       const heading = topic.querySelector(".section-heading");
 
       if (heading && !heading.querySelector(".relock-button")) {
         heading.appendChild(createRelockButton("Bloquear novamente", () => {
-          sessionStorage.removeItem(key);
+          removeUnlocked(unlockName);
           window.location.reload();
         }));
       }
@@ -224,7 +243,7 @@ function setupPlayerTopicLocks() {
         return;
       }
 
-      sessionStorage.setItem(key, "ok");
+      setUnlocked(unlockName);
       topic.classList.remove("is-locked");
       topic.querySelector(".content-lock")?.remove();
     }));
@@ -284,7 +303,7 @@ function setupLogin() {
         });
 
         currentUser = data.user;
-        signupMessage.textContent = "Perfil criado. O DM poderá definir seu cargo.";
+        signupMessage.textContent = "Perfil criado como Player.";
         signupMessage.className = "form-message success";
         window.location.href = "index.html";
       } catch (error) {
@@ -403,6 +422,11 @@ async function renderUsersTable(table) {
 
 async function init() {
   await loadCurrentUser();
+
+  if (requireLoginForPrivatePage()) {
+    return;
+  }
+
   updateNavigation();
   setupLogin();
   setupPlayerPantheonLock();
