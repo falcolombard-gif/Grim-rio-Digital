@@ -71,6 +71,33 @@
       "passwordSalt": "746a533314a2573a3489c350aa46ddac",
       "passwordHash": "ea38b70eb7f0685625206470b4a2fee4cf7d63c9bb0f54ab72354616baa3eebeec8f288ce8487c94112fb979cb63463ffeca1e3d7e551375d2118fa91f9a0d79",
       "createdAt": "2026-05-19T00:00:00.000Z"
+    },
+    {
+      "id": "9c501e63-f6f0-46a9-86c1-0c1301440f89",
+      "name": "Abner Broxado",
+      "email": "abnerpsb07@gmail.com",
+      "role": "Outsider",
+      "passwordSalt": "31e7d252898f27aa1d3022ee5cc968fe",
+      "passwordHash": "c95c318b3c220b68d9cd2204b3a979ed2aaf6f8765c59ba898b76607bafef4a967232b812d925b243a7245d3aa987226f713570d6a830b1af409ec901bf72977",
+      "createdAt": "2026-05-17T15:15:51.005Z"
+    },
+    {
+      "id": "5a0e5c3a-b0cb-4b0e-ab25-335fc4d73825",
+      "name": "Teste Player",
+      "email": "testeplayer@gmail.com",
+      "role": "Player",
+      "passwordSalt": "0db95b75fe61b17d0824e5d9930cbfd2",
+      "passwordHash": "81be627150f9a67a1575ee1bb1d7aad536682f9f32091dac5fabf09572014eda5b455787a526dafe7b95552860c6c937a5fe6ed8bfb19a978e3498eb48aa3781",
+      "createdAt": "2026-05-17T20:37:56.299Z"
+    },
+    {
+      "id": "8690dde1-84d2-474e-8865-fe49c710d985",
+      "name": "Teste Assistente",
+      "email": "assistente@gmail.com",
+      "role": "Assistente do DM",
+      "passwordSalt": "13f861087ce1a06577f20da6cfcc99cd",
+      "passwordHash": "206744b8e04b47e998ab1921ee362797eec0a734dcda578e3cb27183f6373553f9067166a249c6aa8dd393fb96f835b2b518ff0776e37b3dd981aaac94c72a03",
+      "createdAt": "2026-05-17T20:44:58.061Z"
     }
   ]
 }

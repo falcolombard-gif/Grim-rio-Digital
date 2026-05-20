@@ -5,15 +5,14 @@ const path = require("path");
 
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
+const RENDER_DATA_DIR = "/var/data";
+const DATA_DIR = process.env.RENDER && fs.existsSync(RENDER_DATA_DIR) ? RENDER_DATA_DIR : ROOT;
+const DB_PATH = path.join(DATA_DIR, "database.json");
 const SEED_DB_PATH = path.join(ROOT, "database.json");
-const DEFAULT_PERSISTENT_DIR = "/var/data";
-const DB_PATH = process.env.DATABASE_PATH
-  || (fs.existsSync(DEFAULT_PERSISTENT_DIR) ? path.join(DEFAULT_PERSISTENT_DIR, "database.json") : SEED_DB_PATH);
 const SESSION_COOKIE = "rpg_fatec_session";
 const roles = ["DM", "Assistente do DM", "Player", "Outsider"];
 const adminRoles = ["DM", "Assistente do DM"];
 const sessions = new Map();
-const publicPages = new Set(["/index.html", "/login.html"]);
 
 const dmSeed = {
   id: "dm-principal",
@@ -112,33 +111,18 @@ function verifyPassword(password, user) {
 }
 
 function readDatabase() {
-  ensureDatabaseFile();
-
   if (!fs.existsSync(DB_PATH)) {
-    return { users: [] };
+    return fs.existsSync(SEED_DB_PATH)
+      ? JSON.parse(fs.readFileSync(SEED_DB_PATH, "utf8"))
+      : { users: [] };
   }
 
   return JSON.parse(fs.readFileSync(DB_PATH, "utf8"));
 }
 
 function writeDatabase(database) {
-  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+  fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(DB_PATH, JSON.stringify(database, null, 2));
-}
-
-function ensureDatabaseFile() {
-  if (fs.existsSync(DB_PATH)) {
-    return;
-  }
-
-  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-
-  if (DB_PATH !== SEED_DB_PATH && fs.existsSync(SEED_DB_PATH)) {
-    fs.copyFileSync(SEED_DB_PATH, DB_PATH);
-    return;
-  }
-
-  fs.writeFileSync(DB_PATH, JSON.stringify({ users: [] }, null, 2));
 }
 
 function publicUser(user) {
@@ -506,17 +490,10 @@ function serveStatic(request, response) {
   const requestedUrl = new URL(request.url, `http://${request.headers.host}`);
   const pathname = requestedUrl.pathname === "/" ? "/index.html" : requestedUrl.pathname;
   const filePath = path.normalize(path.join(ROOT, decodeURIComponent(pathname)));
-  const extension = path.extname(filePath).toLowerCase();
 
   if (!filePath.startsWith(ROOT)) {
     response.writeHead(403);
     response.end("Acesso negado");
-    return;
-  }
-
-  if (extension === ".html" && !publicPages.has(pathname) && !getCurrentUser(request)) {
-    response.writeHead(302, { Location: "/login.html" });
-    response.end();
     return;
   }
 
@@ -527,6 +504,7 @@ function serveStatic(request, response) {
       return;
     }
 
+    const extension = path.extname(filePath).toLowerCase();
     response.writeHead(200, {
       "Content-Type": mimeTypes[extension] || "application/octet-stream"
     });

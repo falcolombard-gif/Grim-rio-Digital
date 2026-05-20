@@ -2,6 +2,13 @@ const roles = ["DM", "Assistente do DM", "Player", "Outsider"];
 const adminRoles = ["DM", "Assistente do DM"];
 const publicPages = new Set(["index.html", "login.html"]);
 
+if (window.location.protocol === "file:") {
+  const currentFile = window.location.pathname.split(/[\\/]/).pop() || "index.html";
+  const targetFile = currentFile.endsWith(".html") ? currentFile : "index.html";
+  window.location.replace(`http://localhost:3000/${targetFile}`);
+  throw new Error("Redirecionando para o servidor local do site.");
+}
+
 let currentUser = null;
 
 const menuButton = document.querySelector(".menu-toggle");
